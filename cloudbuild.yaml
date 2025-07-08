@@ -1,0 +1,16 @@
+# cloudbuild.yaml
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/psyched-option-462823-k6/cloud-run-source-deploy/hello-cloudbuild', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/psyched-option-462823-k6/cloud-run-source-deploy/hello-cloudbuild']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ['run', 'deploy', 'hello-cloudbuild',
+           '--image=us-central1-docker.pkg.dev/psyched-option-462823-k6/cloud-run-source-deploy/hello-cloudbuild',
+           '--region=us-central1',
+           '--platform=managed',
+           '--allow-unauthenticated']
+images:
+  - 'us-central1-docker.pkg.dev/psyched-option-462823-k6/cloud-run-source-deploy/hello-cloudbuild'
+
