@@ -14,3 +14,5 @@ steps:
 images:
   - 'us-central1-docker.pkg.dev/psyched-option-462823-k6/cloud-run-source-deploy/hello-cloudbuild'
 
+options:
+  logging: CLOUD_LOGGING_ONLY
